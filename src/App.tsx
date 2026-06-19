@@ -188,9 +188,6 @@ function LoanPrototype() {
         </div>
       </section>
 
-      <div className="agentation-wrapper">
-        <Agentation copyToClipboard={false} onCopy={handleCopy} />
-      </div>
     </main>
   );
 }
@@ -1505,7 +1502,6 @@ function LoanDashboardStep() {
                   </button>
                 </div>
               </div>
-              <div className="dashboard-badge">Tăng thêm hạn mức</div>
             </div>
           </section>}
 
