@@ -1580,15 +1580,8 @@ function PaymentStep() {
   const { loanHistory, paymentLoanId, selectedUser, goToLoanDashboard, goToCashier } = useLoanFlow();
   const loan = loanHistory.find((l) => l.id === paymentLoanId) ?? loanHistory[loanHistory.length - 1];
   const fullAmount = loan ? loan.monthlyPayment : 0;
-  const minAmount = Math.round(fullAmount * 0.20);
-  const [selected, setSelected] = useState<"full" | "min" | "custom">("full");
-  const [customInput, setCustomInput] = useState("");
   const contractId = loan ? `VP BANK${loan.id.slice(-6).toUpperCase()}` : "";
-
-  const totalPayment =
-    selected === "full" ? fullAmount :
-    selected === "min" ? minAmount :
-    (parseInt(customInput.replace(/\D/g, ""), 10) || 0);
+  const totalPayment = fullAmount;
 
   return (
     <div className="payment-screen">
@@ -1600,29 +1593,10 @@ function PaymentStep() {
           {/* Card 1: Thông tin thanh toán */}
           <div className="payment-card">
             <h2 className="payment-card__title">Thông tin thanh toán</h2>
-            <div className="payment-options">
-              <label className="payment-option">
-                <input type="radio" name="payment" checked={selected === "full"} onChange={() => setSelected("full")} />
-                <span className="payment-option__radio" />
-                <span className="payment-option__label">Thanh toán dư nợ cuối kỳ</span>
-                <span className="payment-option__amount">{formatCurrency(fullAmount)}</span>
-              </label>
-              <label className="payment-option">
-                <input type="radio" name="payment" checked={selected === "min"} onChange={() => setSelected("min")} />
-                <span className="payment-option__radio" />
-                <span className="payment-option__label">Thanh toán mức tối thiểu</span>
-                <span className="payment-option__amount">{formatCurrency(minAmount)}</span>
-              </label>
-              <div className="payment-option payment-option--input">
-                <input type="radio" name="payment" checked={selected === "custom"} onChange={() => setSelected("custom")} />
-                <span className="payment-option__radio" onClick={() => setSelected("custom")} />
-                <input
-                  className="payment-option__input"
-                  placeholder="Nhập số khác"
-                  value={customInput}
-                  onFocus={() => setSelected("custom")}
-                  onChange={(e) => setCustomInput(e.target.value)}
-                />
+            <div className="payment-info-rows">
+              <div className="payment-info-row">
+                <span className="payment-info-row__label">Thanh toán dư nợ cuối kỳ</span>
+                <span className="payment-info-row__value" style={{ fontWeight: 700 }}>{formatCurrency(fullAmount)}</span>
               </div>
             </div>
           </div>
