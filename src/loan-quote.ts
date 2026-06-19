@@ -1,4 +1,4 @@
-export const LOAN_MIN = 10_000_000;
+export const LOAN_MIN = 2_000_000;
 export const LOAN_MAX = 30_000_000;
 export const LOAN_STEP = 500_000;
 export const PROCESSING_FEE = 200_000;
